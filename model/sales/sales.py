@@ -12,3 +12,15 @@ from model import data_manager, util
 
 DATAFILE = "model/sales/sales.csv"
 HEADERS = ["Id", "Customer", "Product", "Price", "Date"]
+
+def generate_sales_table():
+    table = data_manager.read_table_from_file(DATAFILE)
+    
+    return table
+
+def generated_id():
+    new_id = util.generate_id()
+    return new_id
+
+def overwrite_table(table):
+    data_manager.write_table_to_file(DATAFILE, table)
