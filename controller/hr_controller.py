@@ -1,21 +1,55 @@
+from os import remove
 from model.hr import hr
 from view import terminal as view
+from model import data_manager
 
+def duplicate_id_check(table):
+    is_duplicated = True
+    while is_duplicated:
+        check = 0
+        new_id = hr.generated_id()
+        for row in table:
+            if new_id == row[0]:
+                check += 1
+        if check == 0:
+            is_duplicated = False
+    return new_id
 
 def list_employees():
-    view.print_error_message("Not implemented yet.")
+    table = hr.generate_employees_table()
+    view.print_table(table)
+    #view.print_error_message("Not implemented yet.")
 
 
 def add_employee():
-    view.print_error_message("Not implemented yet.")
+    options = ["Id", "Name", "Date of birth", "Department", "Clearance"]
+    hr_input = view.get_inputs(hr.HEADERS)
+    table = hr.generate_employees_table()
+    
+    new_id = duplicate_id_check(table)
+
+    hr_input.insert(0, new_id)
+    table.append(hr_input)
+    hr.overwrite_table(table)
+    #view.print_error_message("Not implemented yet.")
 
 
 def update_employee():
-    view.print_error_message("Not implemented yet.")
+    remove=['']
+    hr_input = view.get_inputs_update(remove,"Enter Id value to update",'')
+    hr_update = view.get_inputs_update(hr.HEADERS[1:],"Enter value to remove",hr.DATAFILE)
+    table = hr.generate_employees_table()
+    hr.update_employess_table(table,hr_input,hr_update,hr.DATAFILE)
+ 
+
+    #view.print_error_message("Not implemented yet.")
 
 
 def delete_employee():
-    view.print_error_message("Not implemented yet.")
+    remove=['']
+    hr_input = view.get_inputs_update(remove,"Enter Id,name value to remove this line",'')
+    table = hr.generate_employees_table()
+    hr.delete_employess_table(table,hr_input,hr.DATAFILE)
 
 
 def get_oldest_and_youngest():
