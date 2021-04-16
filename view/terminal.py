@@ -1,3 +1,5 @@
+from model.hr import hr
+from model import data_manager
 def print_menu(title, list_options):
     # """Prints options in standard menu format like this:
 
@@ -15,6 +17,11 @@ def print_menu(title, list_options):
     for i in range(1,len(list_options)):
         print(f"({i}) {list_options[i]}")
     print(f"({0}) {list_options[0]}")
+
+def print_input_menu(title, list_options):
+    print(title)
+    for i in range(len(list_options)):
+        print(f"({i}) {list_options[i]}")
     
 def print_message(message):
     # """Prints a single message to the terminal.
@@ -78,3 +85,16 @@ def print_error_message(message):
     #     message: str - the error message
     # """
     print(message)
+
+def get_inputs_update(list_labels, title, file_list):
+    print(title)
+    answers = []
+    for line in list_labels:
+        if 'id' in line:
+            a = (hr.generate_random(data_manager.get_table_from_file(file_list)))
+            print('id:', a)
+            answers.append(a)
+        else:
+            a = input(line)
+            answers.append(a)
+    return answers 

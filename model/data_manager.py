@@ -31,3 +31,6 @@ def write_table_to_file(file_name, table, separator=';'):
         for record in table:
             row = separator.join(record)
             file.write(row + "\n")
+
+
+        
