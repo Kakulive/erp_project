@@ -6,6 +6,7 @@ CUSTOMER_INDEX = 1
 PRODUCT_INDEX = 2
 PRICE_INDEX = 3
 DATE_INDEX = 4
+HEADERS_INDEX = 0
 NO_HEADERS_INDEX = 1
 
 def duplicate_id_check(table):
@@ -122,13 +123,18 @@ def delete_transaction():
     sales.overwrite_table(table)
 
 def get_biggest_revenue_transaction():
-    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
+    table = sales.generate_sales_table()
     revenue_checker = 0
-    for transaction in table:
+    biggest_transaction = []
+    for transaction in table[NO_HEADERS_INDEX:]:
         if float(transaction[PRICE_INDEX]) > revenue_checker:
             revenue_checker = float(transaction[PRICE_INDEX])
-            biggest_transaction = transaction
-    view.print_message(biggest_transaction)
+            biggest = transaction
+    biggest_transaction.append(biggest)
+    biggest_transaction.insert(0,table[HEADERS_INDEX])
+    label = "The transaction with the biggest revenue is"
+    view.print_general_results("", label)
+    view.print_table(biggest_transaction)
 
 def get_biggest_revenue_product():
     table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
@@ -140,12 +146,16 @@ def get_biggest_revenue_product():
             products[transaction[PRODUCT_INDEX]] += float(transaction[PRICE_INDEX])
  
     max_revenue_product = max(products, key=products.get)
-    view.print_message(max_revenue_product)
+
+    label = "The biggest revenue product is"
+    view.print_general_results(max_revenue_product, label)
 
 def count_transactions_between():
     table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     valid_dates_table = get_valid_dates_list()
-    view.print_message(len(valid_dates_table))
+
+    label = "The amount of transactions between given dates is"
+    view.print_general_results(len(valid_dates_table), label)
 
 def sum_transactions_between():
     table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
@@ -153,7 +163,9 @@ def sum_transactions_between():
     transaction_sum = 0
     for transaction in valid_dates_table:
         transaction_sum += float(transaction[PRICE_INDEX])
-    view.print_message(transaction_sum)
+    
+    label = "The total revenue between given dates is"
+    view.print_general_results(transaction_sum,label)
 
 def run_operation(option):
     if option == 1:
