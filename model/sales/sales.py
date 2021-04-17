@@ -15,7 +15,7 @@ HEADERS = ["Id", "Customer", "Product", "Price", "Date"]
 
 def generate_sales_table():
     table = data_manager.read_table_from_file(DATAFILE)
-    
+    table.insert(0,HEADERS)
     return table
 
 def generated_id():

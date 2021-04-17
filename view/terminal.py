@@ -38,7 +38,9 @@ def print_general_results(result, label):
     lists/tuples (like "@label: \n  @item1; @item2"), and dictionaries
     (like "@label \n  @key1: @value1; @key2: @value2")
     """
-    pass
+
+    print(f"{label}:")
+    print(f"{result}")
 
 
 # /--------------------------------\
@@ -54,8 +56,40 @@ def print_table(table):
     # Args:
     #     table: list of lists - the table to print out
     # """
-    for i in table:
-        print(i)
+    max_values = [0 for x in table[0]]
+    for row in table:
+        for index in range(len(row)):
+            if max_values[index] < len(row[index]):
+                max_values[index] = len(row[index])
+
+    desired_empty_spaces = 3
+    empty_spaces_on_sides = desired_empty_spaces*2
+    max_values_expanded = [x+empty_spaces_on_sides for x in max_values]
+
+    top_bar = f"/{(sum(max_values_expanded)+len(max_values_expanded)-1)*'-'}\ "
+    bottom_bar = f"\{(sum(max_values_expanded)+len(max_values_expanded)-1)*'-'}/"
+
+    print(top_bar)
+    
+    for i in range(len(table)-1):
+        line = ''
+        dashed_line = ''
+        for j in range(len(table[i])):
+            line += f"|{(max_values_expanded[j]-len(table[i][j]))//2*' '}{table[i][j]}{(max_values_expanded[j]-((max_values_expanded[j]-len(table[i][j]))//2)-len(table[i][j]))*' '}"
+            dashed_line += f"|{max_values_expanded[j]*'-'}"
+        line += "|"
+        dashed_line += "|"
+        print(line)
+        print(dashed_line)
+    
+    last_table_line = ''
+    for j in range(len(table[i])):
+        last_table_line += f"|{(max_values_expanded[j]-len(table[-1][j]))//2*' '}{table[-1][j]}{(max_values_expanded[j]-((max_values_expanded[j]-len(table[-1][j]))//2)-len(table[-1][j]))*' '}"
+    last_table_line += "|"
+    print(last_table_line)
+
+    print(bottom_bar)
+    
 
 def get_input(label):
     # """Gets single string input from the user.
