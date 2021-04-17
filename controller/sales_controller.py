@@ -6,6 +6,7 @@ CUSTOMER_INDEX = 1
 PRODUCT_INDEX = 2
 PRICE_INDEX = 3
 DATE_INDEX = 4
+NO_HEADERS_INDEX = 1
 
 def duplicate_id_check(table):
     is_duplicated = True
@@ -20,7 +21,7 @@ def duplicate_id_check(table):
     return new_id
 
 def search_id_check():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     error_message = "Woah! There's no such transaction, try again!"
     valid_id = False
     while valid_id == False:
@@ -61,7 +62,7 @@ def get_valid_dates_list():
     year_index = 0
     month_index = 1
     day_index = 2
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     valid_date_table = []
     options = ["Date from", "Date up to"]
     dates_range = view.get_inputs(options)
@@ -98,7 +99,7 @@ def list_transactions():
 def add_transaction():
     options = ["Customer id", "Product" ,"Price", "Date"]
     transaction_input = view.get_inputs(options)
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     
     new_id = duplicate_id_check(table)
 
@@ -107,7 +108,7 @@ def add_transaction():
     sales.overwrite_table(table)
 
 def update_transaction():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     row_index = search_id_check()
     element_to_switch = get_element_to_switch()
     new_value = view.get_input("What's the new value")
@@ -115,13 +116,13 @@ def update_transaction():
     sales.overwrite_table(table)
 
 def delete_transaction():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     row_index = search_id_check()
     table.pop(row_index)
     sales.overwrite_table(table)
 
 def get_biggest_revenue_transaction():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     revenue_checker = 0
     for transaction in table:
         if float(transaction[PRICE_INDEX]) > revenue_checker:
@@ -130,7 +131,7 @@ def get_biggest_revenue_transaction():
     view.print_message(biggest_transaction)
 
 def get_biggest_revenue_product():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     products = {}
     for transaction in table:
         if transaction[PRODUCT_INDEX] not in products:
@@ -142,12 +143,12 @@ def get_biggest_revenue_product():
     view.print_message(max_revenue_product)
 
 def count_transactions_between():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     valid_dates_table = get_valid_dates_list()
     view.print_message(len(valid_dates_table))
 
 def sum_transactions_between():
-    table = sales.generate_sales_table()
+    table = sales.generate_sales_table()[NO_HEADERS_INDEX:]
     valid_dates_table = get_valid_dates_list()
     transaction_sum = 0
     for transaction in valid_dates_table:

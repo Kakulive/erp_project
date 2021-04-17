@@ -54,8 +54,37 @@ def print_table(table):
     # Args:
     #     table: list of lists - the table to print out
     # """
-    for i in table:
-        print(i)
+    max_values = [0 for x in table[0]]
+    for row in table:
+        for index in range(len(row)):
+            if max_values[index] < len(row[index]):
+                max_values[index] = len(row[index])
+
+    empty_spaces_on_sides = 3*2
+    max_values_expanded = [x+empty_spaces_on_sides for x in max_values]
+
+    top_bar = f"/{(sum(max_values_expanded)+len(max_values_expanded)-1)*'-'}\ "
+    bottom_bar = f"\{(sum(max_values_expanded)+len(max_values_expanded)-1)*'-'}/"
+
+    print(top_bar)
+    
+    for i in range(0,len(table)-1):
+        line = f"|{(max_values_expanded[0]-len(table[i][0]))//2*' '}{table[i][0]}{(max_values_expanded[0]-((max_values_expanded[0]-len(table[i][0]))//2)-len(table[i][0]))*' '}|"\
+        f"{(max_values_expanded[1]-len(table[i][1]))//2*' '}{table[i][1]}{(max_values_expanded[1]-((max_values_expanded[1]-len(table[i][1]))//2)-len(table[i][1]))*' '}|"\
+        f"{(max_values_expanded[2]-len(table[i][2]))//2*' '}{table[i][2]}{(max_values_expanded[2]-((max_values_expanded[2]-len(table[i][2]))//2)-len(table[i][2]))*' '}|"\
+        f"{(max_values_expanded[3]-len(table[i][3]))//2*' '}{table[i][3]}{(max_values_expanded[3]-((max_values_expanded[3]-len(table[i][3]))//2)-len(table[i][3]))*' '}|"\
+        f"{(max_values_expanded[4]-len(table[i][4]))//2*' '}{table[i][4]}{(max_values_expanded[4]-((max_values_expanded[4]-len(table[i][4]))//2)-len(table[i][4]))*' '}|"
+        dashed_line = f"|{max_values_expanded[0]*'-'}|{max_values_expanded[1]*'-'}|{max_values_expanded[2]*'-'}|{max_values_expanded[3]*'-'}|{max_values_expanded[4]*'-'}|"
+        print(line)
+        print(dashed_line)
+
+    print(f"|{(max_values_expanded[0]-len(table[-1][0]))//2*' '}{table[-1][0]}{(max_values_expanded[0]-((max_values_expanded[0]-len(table[-1][0]))//2)-len(table[-1][0]))*' '}|"\
+    f"{(max_values_expanded[1]-len(table[-1][1]))//2*' '}{table[-1][1]}{(max_values_expanded[1]-((max_values_expanded[1]-len(table[-1][1]))//2)-len(table[-1][1]))*' '}|"\
+    f"{(max_values_expanded[2]-len(table[-1][2]))//2*' '}{table[-1][2]}{(max_values_expanded[2]-((max_values_expanded[2]-len(table[-1][2]))//2)-len(table[-1][2]))*' '}|"\
+    f"{(max_values_expanded[3]-len(table[-1][3]))//2*' '}{table[-1][3]}{(max_values_expanded[3]-((max_values_expanded[3]-len(table[-1][3]))//2)-len(table[-1][3]))*' '}|"\
+    f"{(max_values_expanded[4]-len(table[-1][4]))//2*' '}{table[-1][4]}{(max_values_expanded[4]-((max_values_expanded[4]-len(table[-1][4]))//2)-len(table[-1][4]))*' '}|")
+    print(bottom_bar)
+    
 
 def get_input(label):
     # """Gets single string input from the user.
