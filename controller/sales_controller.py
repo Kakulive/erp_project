@@ -133,8 +133,7 @@ def get_biggest_revenue_transaction():
     biggest_transaction.append(biggest)
     biggest_transaction.insert(0,table[HEADERS_INDEX])
     label = "The transaction with the biggest revenue is"
-    view.print_general_results("", label)
-    view.print_table(biggest_transaction)
+    view.print_general_results(biggest_transaction, label)
 
 def get_biggest_revenue_product():
     table = sales.generate_sales_table()[NO_HEADERS_INDEX:]

@@ -38,9 +38,20 @@ def print_general_results(result, label):
     lists/tuples (like "@label: \n  @item1; @item2"), and dictionaries
     (like "@label \n  @key1: @value1; @key2: @value2")
     """
-
-    print(f"{label}:")
-    print(f"{result}")
+    if isinstance(result, list) == True:
+        print(f"{label}:")
+        print_table(result)
+    elif isinstance(result, tuple) == True:
+        print(f"{label}: \n {result}")
+    elif isinstance(result, dict) == True:
+        print(f"{label}: \n {result}")
+    elif isinstance(result, int) == True:
+        print(f"{label}: {result}")
+    elif isinstance(result, float) == True:
+        print(f"{label}: {'%0.2f' % result}")
+    else:
+        print(f"{label}:")
+        print(f"{result}")
 
 
 # /--------------------------------\
