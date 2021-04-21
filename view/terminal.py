@@ -1,6 +1,10 @@
 from model.hr import hr
 from model import data_manager
+from os import system
+def clear():
+    _ = system('clear')
 def print_menu(title, list_options):
+
     # """Prints options in standard menu format like this:
 
     # Main menu:
@@ -131,15 +135,44 @@ def print_error_message(message):
     # """
     print(message)
 
-def get_inputs_update(list_labels, title, file_list):
-    print(title)
-    answers = []
-    for line in list_labels:
-        if 'id' in line:
-            a = (hr.generate_random(data_manager.get_table_from_file(file_list)))
-            print('id:', a)
-            answers.append(a)
-        else:
-            a = input(line)
-            answers.append(a)
-    return answers 
+def print_result(result, label):
+
+    if isinstance(result, list):
+        print( label + '\n' )
+        for element in result:
+            element = str(element)
+            for sign in element:
+                if sign == ";":
+                    sign = ' :  '
+                print( str(sign) , end='')
+            print('')
+    elif isinstance(result, dict):
+        first_width = 0
+        secend_width = 0
+        for key in result:
+            key = str(key)
+            result[key] = str(result[key])
+            if first_width < len(key):
+                first_width = len(key)
+            if secend_width < len(result[key]):
+                secend_width = len(result[key])
+        first_width += 2
+        secend_width += 1
+        print('\n' + label + '\n'*2)
+        for key in result:
+            key = str(key)
+            result[key] = str(result[key])
+            temp = round((first_width-len(key))/2)
+            print('|' + '-' * (first_width + secend_width + 2) + '|')
+            print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)), end='')
+            print('| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
+        print('|' + '-' * (first_width + secend_width + 2) + '|')
+
+    else:
+        print( label + '\n'*2 + str(result)  + '\n'*2)
+    
+
+def get_choice(options):
+    print_menu("Main menu", options, "Exit program")
+    inputs = get_inputs([ "Please enter a number: " ], "")
+    return inputs[0]
