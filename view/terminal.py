@@ -1,8 +1,4 @@
-from model.hr import hr
-from model import data_manager
-from os import system
-def clear():
-    _ = system('clear')
+
 def print_menu(title, list_options):
 
     # """Prints options in standard menu format like this:

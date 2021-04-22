@@ -98,17 +98,65 @@ def get_yanger_person(table):
             younger_persons.append(row[NAME_INDEX])
     
     return younger_persons
-def birthday(table):
-    for row in table:
-        splited_birth_date = row[DATE_OF_BIRTH_INDEX].split('-')
-        if int(splited_birth_date[2]) in range(birthday[2],birthday[2]+14):
-            if int(splited_birth_date[1]) in range(int(birthday[1],birthday[1]+1)):
-                date_birthday = splited_birth_date
-            date_birthday = splited_birth_date
-
-    worker = []
-    for row in table:
-        if row[DATE_OF_BIRTH_INDEX] == '-'.join(date_birthday):
-            worker.append(row[NAME_INDEX])
+def average_age(table):
     
-    return worker
+    year = 2021
+    average = 0
+    count = 0
+    
+    for worker in table:
+        splited_birth_date = worker[DATE_OF_BIRTH_INDEX].split('-')
+        a = year - int(splited_birth_date[0])
+        average = average + a 
+        count +=1
+    average = average / count
+    return average
+def bigest_employees_with_clearance(table):
+    
+    
+    revenue_checker = 0
+    biggest_clearance = []
+    for clearance in table[NO_HEADERS_INDEX:]:
+        if float(clearance[CLEARRANCE_INDEX]) > revenue_checker:
+            revenue_checker = float(clearance[CLEARRANCE_INDEX])
+            biggest = clearance
+    biggest_clearance.append(biggest)
+    biggest_clearance.insert(0,table[HEADERS_INDEX])
+    return biggest_clearance
+
+def department_count(table):
+    genre = input("Chose the department")
+    counter = 0
+    for row in table:
+        if str(row[DEPARTMENT_INDEX]) == str(genre):
+            counter += 1
+           
+    return counter
+def check_date_to_number(given_date):
+    mounth = {"01":31,"02":28,"03":31,"04":30,"05":31,"06":30,"07":31,"08":31,"09":30,"10":31,"11":30,"12":31}
+    given_date = given_date.split("-")
+    given_date_sum = 0
+    for element in mounth.keys():
+        if element == given_date[1]:
+            break
+        else:
+            given_date_sum += mounth[element]
+    given_date_sum += int(given_date[2])
+    return given_date_sum
+def birthday1(table):
+    given_date = view.get_input("Write the date")
+    name=[]
+    date = []
+    finally_list = []
+    given_date = check_date_to_number(given_date)
+    for row in table:
+        name.append(row[NAME_INDEX])
+        date_switch = check_date_to_number(row[DATE_OF_BIRTH_INDEX])
+        date.append(date_switch)
+    for index in range(len(date)):
+        if (given_date - date[index]) < 14:
+            finally_list.append(name[index])
+    return finally_list
+
+
+    
