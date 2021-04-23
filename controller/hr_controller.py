@@ -97,10 +97,10 @@ def delete_employee():
 def get_oldest_and_youngest():
 
     
-    label = "The oldest person: "
+    label = "The oldest person is"
     result = hr.get_oldest_person(table)
     view.print_result(result, label)
-    label = "The ounger person: "
+    label = "The youngest person is"
     result = hr.get_yanger_person(table)
     view.print_result(result, label)
 
@@ -109,14 +109,14 @@ def get_average_age():
 
    
     average = hr.average_age(table)
-    label = "The average age is "
+    label = "The average age of all employees is"
     view.print_general_results(average, label)
     
 
 
 def next_birthdays():
     
-    label = "The birthday person: "
+    label = "People with upcoming birthdays"
     result = hr.birthday1(table)
     view.print_result(result, label)
 
@@ -125,13 +125,13 @@ def count_employees_with_clearance():
     
    
     biggest_clearance = hr.bigest_employees_with_clearance(table)
-    label = "The clearance with the biggest revenue is"
+    label = "Number of employees with given clearence or above"
     view.print_general_results(biggest_clearance, label)
 
 def count_employees_per_department():
     
     counter = hr.department_count(table)
-    label = "employees department  is"
+    label = "Number of employees within a department"
     view.print_general_results(counter, label)
 
 

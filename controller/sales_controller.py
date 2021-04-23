@@ -89,7 +89,7 @@ def get_valid_dates_list():
                 valid_date_table.append(transaction)
             elif int(transaction[DATE_INDEX][month_index]) == int(date_up_to[month_index]):
                 if int(transaction[DATE_INDEX][day_index]) <= int(date_up_to[day_index]):
-                    valid_date_table.append(transaction)        
+                    valid_date_table.append(transaction)
 
     return valid_date_table
 

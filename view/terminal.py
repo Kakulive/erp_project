@@ -13,10 +13,12 @@ def print_menu(title, list_options):
     #     title (str): the title of the menu (first row)
     #     list_options (list): list of the menu options (listed starting from 1, 0th element goes to the end)
     # """
+    print("")
     print(title)
     for i in range(1,len(list_options)):
         print(f"({i}) {list_options[i]}")
     print(f"({0}) {list_options[0]}")
+    print("")
 
 def print_input_menu(title, list_options):
     print(title)
@@ -38,6 +40,7 @@ def print_general_results(result, label):
     lists/tuples (like "@label: \n  @item1; @item2"), and dictionaries
     (like "@label \n  @key1: @value1; @key2: @value2")
     """
+    print("")
     if isinstance(result, list) == True:
         print(f"{label}:")
         print_table(result)
@@ -52,6 +55,7 @@ def print_general_results(result, label):
     else:
         print(f"{label}:")
         print(f"{result}")
+    print("")
 
 
 # /--------------------------------\
