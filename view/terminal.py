@@ -41,9 +41,13 @@ def print_general_results(result, label):
     (like "@label \n  @key1: @value1; @key2: @value2")
     """
     print("")
-    if isinstance(result, list) == True:
+    if isinstance(result, list) == True and isinstance(result[0], list):
         print(f"{label}:")
         print_table(result)
+    elif isinstance(result, list) == True:
+        print(f"{label}:")
+        for element in result:
+            print(element)
     elif isinstance(result, tuple) == True:
         print(f"{label}: \n {result}")
     elif isinstance(result, dict) == True:
