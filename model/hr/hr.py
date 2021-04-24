@@ -112,15 +112,14 @@ def average_age(table):
     average = average / count
     return average
 def bigest_employees_with_clearance(table):
-    
-    
-    revenue_checker = 0
+
+    check_level = view.get_input("Write level 1-7")
     biggest_clearance = []
     for clearance in table[NO_HEADERS_INDEX:]:
-        if float(clearance[CLEARRANCE_INDEX]) > revenue_checker:
-            revenue_checker = float(clearance[CLEARRANCE_INDEX])
+        if int(clearance[CLEARRANCE_INDEX]) >= int(check_level):
             biggest = clearance
-    biggest_clearance.append(biggest)
+            biggest_clearance.append(biggest)
+    
     biggest_clearance.insert(0,table[HEADERS_INDEX])
     return biggest_clearance
 
@@ -149,12 +148,16 @@ def birthday1(table):
     date = []
     finally_list = []
     given_date = check_date_to_number(given_date)
+    if given_date > 351:
+        given_date_dec = (given_date + 14) % 365
+    else:
+        given_date_dec = given_date
     for row in table:
         name.append(row[NAME_INDEX])
         date_switch = check_date_to_number(row[DATE_OF_BIRTH_INDEX])
         date.append(date_switch)
     for index in range(len(date)):
-        if (given_date - date[index]) < 14:
+        if (abs((date[index] - given_date)) < 14) or (abs((date[index] - given_date_dec)) < 14):
             finally_list.append(name[index])
     return finally_list
 
