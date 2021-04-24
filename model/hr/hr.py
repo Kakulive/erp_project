@@ -115,12 +115,12 @@ def bigest_employees_with_clearance(table):
 
     check_level = view.get_input("Write level 1-7")
     biggest_clearance = []
-    for clearance in table[NO_HEADERS_INDEX:]:
+    for clearance in table:
         if int(clearance[CLEARRANCE_INDEX]) >= int(check_level):
             biggest = clearance
             biggest_clearance.append(biggest)
     
-    biggest_clearance.insert(0,table[HEADERS_INDEX])
+    biggest_clearance.insert(0,HEADERS)
     return biggest_clearance
 
 def department_count(table):
