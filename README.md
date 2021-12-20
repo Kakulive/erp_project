@@ -1,1 +1,1 @@
-# erp_project
+An exmaple of a simple ERP system without the database usage, created while learning Python.
